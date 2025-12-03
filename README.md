@@ -36,9 +36,22 @@ To isolate the gains from the RBPNN probabilistic head, we have implemented a co
 
 The `IDL_Project.ipynb` notebook contains the full pipeline for training, evaluation, and visualization of these comparisons.
 
+### Dataset Expansion & Augmentation
+
+We have significantly expanded our dataset and enhanced our data pipeline:
+
+- **Kaggle Dataset Integration**: We integrated an additional ~3,000 images from Kaggle (merged with the original Figshare dataset), doubling our training data.
+- **Advanced Augmentation**: We migrated from standard `torchvision` transforms to **Albumentations**. This allows for more robust training using techniques like:
+  - Elastic Transforms
+  - Coarse Dropout
+  - Gaussian Noise & Blur
+  - Random Brightness/Contrast
+
+The project now automatically merges these datasets into a `combined_manifest.csv` for training.
+
 ### Future Work
 
-We plan to expand our dataset to include more variations, such as blurred images, noisy images, and images with no tumors, to further test model robustness.
+We plan to further test model robustness on out-of-distribution samples and explore additional architecture backbones.
 
 ## Table of Contents
 
@@ -78,6 +91,19 @@ To set up the project locally, follow these steps:
    The current dataset and project resources are available through the following Google Drive folder:
    https://drive.google.com/drive/folders/1UqQtpetjvWrkhwaeD3yaaE_S50YWefEr?usp=drive_link
 
+   **Note on Data Setup:**
+   To use the expanded Kaggle dataset, ensure your Google Drive has the following structure:
+
+   ```
+   brain-tumor-cls/
+   └── data/
+       └── brain_tumor_dataset/
+           ├── images.npy
+           └── labels.npy
+   ```
+
+   The notebook will automatically detect these files and generate the images.
+
 2. **Run the Jupyter Notebook**: The core implementation can be found in `IDL_Project.ipynb`. Open it with Jupyter and run through the steps to train and evaluate the model.
 
    ```bash
@@ -106,12 +132,12 @@ This project requires the following Python libraries:
 
 - PyTorch (Core framework)
 - Torchvision
+- Albumentations (Data Augmentation)
 - Scikit-learn
 - NumPy
 - Pandas
 - Matplotlib / Seaborn
-- Pandas
-- OpenCV (if using image processing)
+- OpenCV (cv2)
 
 You can install all dependencies using the provided `requirements.txt`:
 

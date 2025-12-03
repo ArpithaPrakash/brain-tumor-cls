@@ -58,7 +58,7 @@ df.loc[val_end:, "split"] = "test"
 
 # Save Kaggle manifest
 df.to_csv(MANIFEST_PATH, index=False)
-print(f"✅ Kaggle manifest saved to {MANIFEST_PATH}, total samples = {len(df)}")
+print(f"[INFO] Kaggle manifest saved to {MANIFEST_PATH}, total samples = {len(df)}")
 
 # --- OPTIONAL: Merge with Figshare manifest ---
 if FIGSHARE_MANIFEST_PATH.exists():
@@ -66,6 +66,6 @@ if FIGSHARE_MANIFEST_PATH.exists():
     figshare_df = pd.read_csv(FIGSHARE_MANIFEST_PATH)
     merged_df = pd.concat([figshare_df, df]).reset_index(drop=True)
     merged_df.to_csv(COMBINED_MANIFEST_PATH, index=False)
-    print(f"✅ Combined manifest saved to {COMBINED_MANIFEST_PATH}")
+    print(f"[INFO] Combined manifest saved to {COMBINED_MANIFEST_PATH}")
 else:
     print(f"[WARN] Figshare manifest not found at {FIGSHARE_MANIFEST_PATH}, skipping merge.")
